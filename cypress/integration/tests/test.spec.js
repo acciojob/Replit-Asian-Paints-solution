@@ -13,8 +13,7 @@
 
 const baseUrl = "http://localhost:3000";
 
-describe("example to-do app", () => {
-    
+describe("Basic Rendering", () => {
   beforeEach(() => {
     cy.visit(baseUrl);
   });
@@ -22,17 +21,111 @@ describe("example to-do app", () => {
   // test cases u have to change is these all 'it' below
   it("Checking text", () => {
     cy.visit(baseUrl + "/main.html"); //always check this "visit" in your test case that it is set to -  baseUrl + "/main.html"
-    cy.get("div").then((span) => {
-      const text = span.text().trim();
-      expect(text).to.eq(`Welcome to the world of Web development`);
-    });
+    cy.get("input#block_id").should("exist");
+    cy.get("input#colour_id").should("exist");
+    cy.get(".grid-container").find(".grid-item").eq(8).should("exist");
+    cy.get("#change_button").should("have.text", "Change");
+    cy.get("#reset_button").should("have.text", "Reset");
+    cy.get(".grid-container").find(".grid-item").eq(0).should("have.text", "1");
+    cy.get(".grid-container").find(".grid-item").eq(1).should("have.text", "2");
+    cy.get(".grid-container").find(".grid-item").eq(2).should("have.text", "3");
+    cy.get(".grid-container").find(".grid-item").eq(3).should("have.text", "4");
+    cy.get(".grid-container").find(".grid-item").eq(4).should("have.text", "5");
+    cy.get(".grid-container").find(".grid-item").eq(5).should("have.text", "6");
+    cy.get(".grid-container").find(".grid-item").eq(6).should("have.text", "7");
+    cy.get(".grid-container").find(".grid-item").eq(7).should("have.text", "8");
+    cy.get(".grid-container").find(".grid-item").eq(8).should("have.text", "9");
   });
-    
+});
 
-  it("Checking binding of id with div tag", () => {
-    cy.visit(baseUrl + "/main.html"); //always check this "visit" in your test case that it is set to -  baseUrl + "/main.html"
-    cy.get("div#text");
+describe("Working", () => {
+  beforeEach(() => {
+    cy.visit(baseUrl);
   });
+
+  // test cases u have to change is these all 'it' below
+  it("Checking Change button", () => {
+    cy.visit(baseUrl + "/main.html"); //always check this "visit" in your test case that it is set to -  baseUrl + "/main.html"
+    cy.get("input#block_id").type("3");
+    cy.get("input#colour_id").type("red");
+    cy.get("#change_button").click();
+    cy.get(".grid-container")
+      .find(".grid-item")
+      .eq(2)
+      .should("have.css", "background-color", "rgb(255, 0, 0)");
+    cy.get(".grid-container")
+      .find(".grid-item")
+      .eq(1)
+      .should("have.css", "background-color", "rgba(0, 0, 0, 0)");
+    cy.get(".grid-container")
+      .find(".grid-item")
+      .eq(0)
+      .should("have.css", "background-color", "rgba(0, 0, 0, 0)");
+    cy.get(".grid-container")
+      .find(".grid-item")
+      .eq(3)
+      .should("have.css", "background-color", "rgba(0, 0, 0, 0)");
+    cy.get(".grid-container")
+      .find(".grid-item")
+      .eq(4)
+      .should("have.css", "background-color", "rgba(0, 0, 0, 0)");
+    cy.get(".grid-container")
+      .find(".grid-item")
+      .eq(5)
+      .should("have.css", "background-color", "rgba(0, 0, 0, 0)");
+    cy.get(".grid-container")
+      .find(".grid-item")
+      .eq(6)
+      .should("have.css", "background-color", "rgba(0, 0, 0, 0)");
+    cy.get(".grid-container")
+      .find(".grid-item")
+      .eq(7)
+      .should("have.css", "background-color", "rgba(0, 0, 0, 0)");
+    cy.get(".grid-container")
+      .find(".grid-item")
+      .eq(8)
+      .should("have.css", "background-color", "rgba(0, 0, 0, 0)");
+  });
+
+  it("reset button",()=>{
+    cy.get("#reset_button").click();
+    cy.get(".grid-container")
+    .find(".grid-item")
+    .eq(4)
+    .should("have.css", "background-color", "rgba(0, 0, 0, 0)");
+  cy.get(".grid-container")
+    .find(".grid-item")
+    .eq(5)
+    .should("have.css", "background-color", "rgba(0, 0, 0, 0)");
+  cy.get(".grid-container")
+    .find(".grid-item")
+    .eq(6)
+    .should("have.css", "background-color", "rgba(0, 0, 0, 0)");
+  cy.get(".grid-container")
+    .find(".grid-item")
+    .eq(7)
+    .should("have.css", "background-color", "rgba(0, 0, 0, 0)");
+  cy.get(".grid-container")
+    .find(".grid-item")
+    .eq(8)
+    .should("have.css", "background-color", "rgba(0, 0, 0, 0)");
+    cy.get(".grid-container")
+    .find(".grid-item")
+    .eq(0)
+    .should("have.css", "background-color", "rgba(0, 0, 0, 0)");
+  cy.get(".grid-container")
+    .find(".grid-item")
+    .eq(1)
+    .should("have.css", "background-color", "rgba(0, 0, 0, 0)");
+  cy.get(".grid-container")
+    .find(".grid-item")
+    .eq(2)
+    .should("have.css", "background-color", "rgba(0, 0, 0, 0)");
+  cy.get(".grid-container")
+    .find(".grid-item")
+    .eq(3)
+    .should("have.css", "background-color", "rgba(0, 0, 0, 0)");
+  
     
-    
+  })
 });
